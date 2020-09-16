@@ -3,7 +3,6 @@ package com.example.admin.angrybirds.activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -22,39 +21,27 @@ public class NewGameActivity extends AppCompatActivity {
         Button randomMap=findViewById(R.id.random_map);
         Button mapDesign=findViewById(R.id.map_design);
 
-        map1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentPlay = new Intent(NewGameActivity.this,PlayActivity.class);
-                intentPlay.putExtra("type",1);
-                startActivity(intentPlay);
-            }
+        map1.setOnClickListener(v -> {
+            Intent intentPlay = new Intent(NewGameActivity.this,PlayActivity.class);
+            intentPlay.putExtra("type",1);
+            startActivity(intentPlay);
         });
 
-        map2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentPlay = new Intent(NewGameActivity.this,PlayActivity.class);
-                intentPlay.putExtra("type",5);
-                startActivity(intentPlay);
-            }
+        map2.setOnClickListener(v -> {
+            Intent intentPlay = new Intent(NewGameActivity.this,PlayActivity.class);
+            intentPlay.putExtra("type",5);
+            startActivity(intentPlay);
         });
 
-        randomMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentRandom = new Intent(NewGameActivity.this,PlayActivity.class);
-                intentRandom.putExtra("type",4);
-                startActivity(intentRandom);
-            }
+        randomMap.setOnClickListener(v -> {
+            Intent intentRandom = new Intent(NewGameActivity.this,PlayActivity.class);
+            intentRandom.putExtra("type",4);
+            startActivity(intentRandom);
         });
 
-        mapDesign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentDesign = new Intent(NewGameActivity.this,SettingActivity.class);
-                startActivity(intentDesign);
-            }
+        mapDesign.setOnClickListener(v -> {
+            Intent intentDesign = new Intent(NewGameActivity.this,SettingActivity.class);
+            startActivity(intentDesign);
         });
     }
 }

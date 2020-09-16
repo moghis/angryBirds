@@ -13,7 +13,6 @@ import com.example.admin.angrybirds.R;
 
 public class Pig extends MovingObject {
     private ImageView pig;
-    private Context context;
     private MediaPlayer sound;
 
     public Pig(Context context)
@@ -21,7 +20,6 @@ public class Pig extends MovingObject {
         pig=new ImageView(context);
         pig.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.pig, null));
         sound=MediaPlayer.create(context.getApplicationContext(), R.raw.pig_collision);
-        this.context=context;
     }
 
     @Override

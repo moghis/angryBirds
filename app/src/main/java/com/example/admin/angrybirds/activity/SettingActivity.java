@@ -3,11 +3,9 @@ package com.example.admin.angrybirds.activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.NumberPicker;
 
 import com.example.admin.angrybirds.R;
@@ -60,158 +58,98 @@ public class SettingActivity extends AppCompatActivity {
 
         birdCount=1;
 
-        numberPickerBird.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                birdCount=newVal;
-            }
+        numberPickerBird.setOnValueChangedListener((picker, oldVal, newVal) -> birdCount=newVal);
+
+
+
+        numberPickerBoxPos1.setOnValueChangedListener((picker, oldVal, newVal) -> boxPos1=newVal);
+
+        numberPickerBoxPos2.setOnValueChangedListener((picker, oldVal, newVal) -> boxPos2=newVal);
+
+        numberPickerBoxPos3.setOnValueChangedListener((picker, oldVal, newVal) -> boxPos3=newVal);
+
+        numberPickerBoxPos4.setOnValueChangedListener((picker, oldVal, newVal) -> boxPos4=newVal);
+
+        numberPickerBoxPos5.setOnValueChangedListener((picker, oldVal, newVal) -> boxPos5 = newVal);
+
+
+
+
+        checkBoxPigPos1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[0]=1;
+            else
+                pigPos[0]=0;
         });
 
-
-
-        numberPickerBoxPos1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                boxPos1=newVal;
-            }
+        checkBoxPigPos2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[1]=2;
+            else
+                pigPos[1]=0;
         });
 
-        numberPickerBoxPos2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                boxPos2=newVal;
-            }
+        checkBoxPigPos3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[2]=3;
+            else
+                pigPos[2]=0;
         });
 
-        numberPickerBoxPos3.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                boxPos3=newVal;
-            }
+        checkBoxPigPos4.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[3]=4;
+            else
+                pigPos[3]=0;
         });
 
-        numberPickerBoxPos4.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                boxPos4=newVal;
-            }
+        checkBoxPigPos5.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[4]=5;
+            else
+                pigPos[4]=0;
         });
 
-        numberPickerBoxPos5.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                boxPos5 = newVal;
-            }
+        checkBoxPigPos6.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[5]=6;
+            else
+                pigPos[5]=0;
         });
 
-
-
-
-        checkBoxPigPos1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[0]=1;
-                else
-                    pigPos[0]=0;
-            }
+        checkBoxPigPos7.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[6]=7;
+            else
+                pigPos[6]=0;
         });
 
-        checkBoxPigPos2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[1]=2;
-                else
-                    pigPos[1]=0;
-            }
+        checkBoxPigPos8.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[7]=8;
+            else
+                pigPos[7]=0;
         });
 
-        checkBoxPigPos3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[2]=3;
-                else
-                    pigPos[2]=0;
-            }
-        });
-
-        checkBoxPigPos4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[3]=4;
-                else
-                    pigPos[3]=0;
-            }
-        });
-
-        checkBoxPigPos5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[4]=5;
-                else
-                    pigPos[4]=0;
-            }
-        });
-
-        checkBoxPigPos6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[5]=6;
-                else
-                    pigPos[5]=0;
-            }
-        });
-
-        checkBoxPigPos7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[6]=7;
-                else
-                    pigPos[6]=0;
-            }
-        });
-
-        checkBoxPigPos8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[7]=8;
-                else
-                    pigPos[7]=0;
-            }
-        });
-
-        checkBoxPigPos9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    pigPos[8]=9;
-                else
-                    pigPos[8]=0;
-            }
+        checkBoxPigPos9.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                pigPos[8]=9;
+            else
+                pigPos[8]=0;
         });
 
         Button playButton=findViewById(R.id.play);
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(SettingActivity.this,PlayActivity.class);
-                intent.putExtra("pigPos",pigPos);
-                intent.putExtra("birdCount",birdCount);
-                intent.putExtra("boxPos1",boxPos1);
-                intent.putExtra("boxPos2",boxPos2);
-                intent.putExtra("boxPos3",boxPos3);
-                intent.putExtra("boxPos4",boxPos4);
-                intent.putExtra("boxPos5",boxPos5);
-                intent.putExtra("type",3);
-                startActivity(intent);
-            }
+        playButton.setOnClickListener(v -> {
+            Intent intent =new Intent(SettingActivity.this,PlayActivity.class);
+            intent.putExtra("pigPos",pigPos);
+            intent.putExtra("birdCount",birdCount);
+            intent.putExtra("boxPos1",boxPos1);
+            intent.putExtra("boxPos2",boxPos2);
+            intent.putExtra("boxPos3",boxPos3);
+            intent.putExtra("boxPos4",boxPos4);
+            intent.putExtra("boxPos5",boxPos5);
+            intent.putExtra("type",3);
+            startActivity(intent);
         });
 
     }

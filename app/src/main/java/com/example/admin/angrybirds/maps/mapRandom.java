@@ -5,20 +5,14 @@ import android.graphics.Point;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
-import android.widget.RelativeLayout;
-
-import com.example.admin.angrybirds.R;
-import com.example.admin.angrybirds.model.Bird;
 import com.example.admin.angrybirds.model.Box;
 import com.example.admin.angrybirds.model.MovingObject;
-import com.example.admin.angrybirds.model.Objects;
 import com.example.admin.angrybirds.model.Pig;
 import com.example.admin.angrybirds.model.RedBird;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static android.content.ContentValues.TAG;
 
@@ -26,13 +20,6 @@ import static android.content.ContentValues.TAG;
 
 
 public class mapRandom {
-    private static int heightBox;
-    private static int widthBox;
-    private static int widthRedBird;
-    private static int heightRedBird;
-    private static int widthPig;
-    private static int heightPig;
-    private static Point size;
     private static int countBird,countBox,countPig;
     public static List<MovingObject> CreateObjects(Activity activity)
     {
@@ -44,20 +31,20 @@ public class mapRandom {
         Random random=new Random();
 
         Display display = activity.getWindowManager().getDefaultDisplay();
-        size = new Point();
+        Point size = new Point();
         display.getSize(size);
 
         heightRedBirdPX=dpToPx(30,activity);
         widthRedBirdPX=dpToPx(30,activity);
-        heightRedBird = size.y-heightRedBirdPX-130;
+        int heightRedBird = size.y - heightRedBirdPX - 130;
 
         heightBoxPX=dpToPx(40,activity);
         widthBoxPX=dpToPx(40,activity);
-        heightBox = size.y-heightBoxPX-130;
+        int heightBox = size.y - heightBoxPX - 130;
 
         heightPigPX=dpToPx(30,activity);
         widthPigPX=dpToPx(30,activity);
-        heightPig = size.y-heightPigPX-130;
+        int heightPig = size.y - heightPigPX - 130;
 
         countBird = random.nextInt(7-2)+2;
         countPig = random.nextInt(countBird-1)+1;
@@ -126,35 +113,35 @@ public class mapRandom {
             {
                 case 0:
                     box.getImage().setX(550);
-                    box.getImage().setY(heightBox-pos1*heightBoxPX);
+                    box.getImage().setY(heightBox -pos1*heightBoxPX);
                     box.setCollision(1);
                     box.setId(id++);
                     pos1++;
                     break;
                 case 1:
                     box.getImage().setX(800);
-                    box.getImage().setY(heightBox-pos2*heightBoxPX);
+                    box.getImage().setY(heightBox -pos2*heightBoxPX);
                     box.setCollision(1);
                     box.setId(id++);
                     pos2++;
                     break;
                 case 2:
                     box.getImage().setX(1050);
-                    box.getImage().setY(heightBox-pos3*heightBoxPX);
+                    box.getImage().setY(heightBox -pos3*heightBoxPX);
                     box.setCollision(1);
                     box.setId(id++);
                     pos3++;
                     break;
                 case 3:
                     box.getImage().setX(1300);
-                    box.getImage().setY(heightBox-pos4*heightBoxPX);
+                    box.getImage().setY(heightBox -pos4*heightBoxPX);
                     box.setCollision(1);
                     box.setId(id++);
                     pos4++;
                     break;
                 case 4:
                     box.getImage().setX(1550);
-                    box.getImage().setY(heightBox-pos5*heightBoxPX);
+                    box.getImage().setY(heightBox -pos5*heightBoxPX);
                     box.setCollision(1);
                     box.setId(id++);
                     pos5++;
@@ -178,7 +165,7 @@ public class mapRandom {
             {
                 case 0:
                     pig.getImage().setX(550);
-                    pig.getImage().setY(heightPig-pos1*heightBoxPX);
+                    pig.getImage().setY(heightPig -pos1*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(id++);
                     break;
@@ -190,7 +177,7 @@ public class mapRandom {
                     break;
                 case 2:
                     pig.getImage().setX(800);
-                    pig.getImage().setY(heightPig-pos2*heightBoxPX);
+                    pig.getImage().setY(heightPig -pos2*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(id++);
                     break;
@@ -202,7 +189,7 @@ public class mapRandom {
                     break;
                 case 4:
                     pig.getImage().setX(1050);
-                    pig.getImage().setY(heightPig-pos3*heightBoxPX);
+                    pig.getImage().setY(heightPig -pos3*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(id++);
                     break;
@@ -214,7 +201,7 @@ public class mapRandom {
                     break;
                 case 6:
                     pig.getImage().setX(1300);
-                    pig.getImage().setY(heightPig-pos4*heightBoxPX);
+                    pig.getImage().setY(heightPig -pos4*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(id++);
                     break;
@@ -226,7 +213,7 @@ public class mapRandom {
                     break;
                 case 8:
                     pig.getImage().setX(1550);
-                    pig.getImage().setY(heightPig-pos5*heightBoxPX);
+                    pig.getImage().setY(heightPig -pos5*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(id++);
                     break;

@@ -3,15 +3,9 @@ package com.example.admin.angrybirds.maps;
 import android.app.Activity;
 import android.graphics.Point;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
-import android.widget.RelativeLayout;
-
-import com.example.admin.angrybirds.R;
-import com.example.admin.angrybirds.model.Bird;
 import com.example.admin.angrybirds.model.Box;
 import com.example.admin.angrybirds.model.MovingObject;
-import com.example.admin.angrybirds.model.Objects;
 import com.example.admin.angrybirds.model.Pig;
 import com.example.admin.angrybirds.model.RedBird;
 
@@ -21,34 +15,27 @@ import java.util.List;
 
 
 public class map1 {
-    private static int heightBox;
-    private static int widthBox;
-    private static int widthRedBird;
-    private static int heightRedBird;
-    private static int widthPig;
-    private static int heightPig;
-    private static Point size;
+
     public static List<MovingObject> CreateObjects(Activity activity)
     {
-        RelativeLayout root = activity.findViewById(R.id.root);
         int heightRedBirdPX, widthRedBirdPX;
         int heightBoxPX, widthBoxPX;
         int heightPigPX, widthPigPX;
         Display display = activity.getWindowManager().getDefaultDisplay();
-        size = new Point();
+        Point size = new Point();
         display.getSize(size);
 
         heightRedBirdPX=dpToPx(30,activity);
         widthRedBirdPX=dpToPx(30,activity);
-        heightRedBird = size.y-heightRedBirdPX-130;
+        int heightRedBird = size.y - heightRedBirdPX - 130;
 
         heightBoxPX=dpToPx(40,activity);
         widthBoxPX=dpToPx(40,activity);
-        heightBox = size.y-heightBoxPX-130;
+        int heightBox = size.y - heightBoxPX - 130;
 
         heightPigPX=dpToPx(30,activity);
         widthPigPX=dpToPx(30,activity);
-        heightPig = size.y-heightPigPX-130;
+        int heightPig = size.y - heightPigPX - 130;
 
         List<MovingObject> objects=new ArrayList<>();
         for (int i=1;i<=4;i++) {
@@ -102,7 +89,7 @@ public class map1 {
                     break;
                 case 2:
                     box.getImage().setX(550);
-                    box.getImage().setY(heightBox-heightBoxPX);
+                    box.getImage().setY(heightBox -heightBoxPX);
                     box.setCollision(1);
                     box.setId(5);
                     break;
@@ -114,19 +101,19 @@ public class map1 {
                     break;
                 case 4:
                     box.getImage().setX(800);
-                    box.getImage().setY(heightBox-heightBoxPX);
+                    box.getImage().setY(heightBox -heightBoxPX);
                     box.setCollision(1);
                     box.setId(7);
                     break;
                 case 5:
                     box.getImage().setX(800);
-                    box.getImage().setY(heightBox-2*heightBoxPX);
+                    box.getImage().setY(heightBox -2*heightBoxPX);
                     box.setCollision(1);
                     box.setId(8);
                     break;
                 case 6:
                     box.getImage().setX(800);
-                    box.getImage().setY(heightBox-3*heightBoxPX);
+                    box.getImage().setY(heightBox -3*heightBoxPX);
                     box.setCollision(1);
                     box.setId(9);
                     break;
@@ -138,7 +125,7 @@ public class map1 {
                     break;
                 case 8:
                     box.getImage().setX(1050);
-                    box.getImage().setY(heightBox-heightBoxPX);
+                    box.getImage().setY(heightBox -heightBoxPX);
                     box.setCollision(1);
                     box.setId(11);
                     break;
@@ -150,13 +137,13 @@ public class map1 {
                     break;
                 case 10:
                     box.getImage().setX(1300);
-                    box.getImage().setY(heightBox-heightBoxPX);
+                    box.getImage().setY(heightBox -heightBoxPX);
                     box.setCollision(1);
                     box.setId(13);
                     break;
                 case 11:
                     box.getImage().setX(1300);
-                    box.getImage().setY(heightBox-2*heightBoxPX);
+                    box.getImage().setY(heightBox -2*heightBoxPX);
                     box.setCollision(1);
                     box.setId(14);
                     break;
@@ -168,7 +155,7 @@ public class map1 {
                     break;
                 case 13:
                     box.getImage().setX(1550);
-                    box.getImage().setY(heightBox-heightBoxPX);
+                    box.getImage().setY(heightBox -heightBoxPX);
                     box.setCollision(1);
                     box.setId(16);
                     break;
@@ -193,7 +180,7 @@ public class map1 {
                     break;
                 case 2:
                     pig.getImage().setX(800);
-                    pig.getImage().setY(heightPig-4*heightBoxPX);
+                    pig.getImage().setY(heightPig -4*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(18);
                     break;
@@ -217,7 +204,7 @@ public class map1 {
                     break;
                 case 6:
                     pig.getImage().setX(1550);
-                    pig.getImage().setY(heightPig-2*heightBoxPX);
+                    pig.getImage().setY(heightPig -2*heightBoxPX);
                     pig.setCollision(1);
                     pig.setId(22);
                     break;

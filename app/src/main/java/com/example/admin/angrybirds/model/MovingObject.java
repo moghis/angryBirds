@@ -1,8 +1,5 @@
 package com.example.admin.angrybirds.model;
 
-import android.media.MediaPlayer;
-import android.widget.ImageView;
-
 /**
  * Created by moghis on 19/12/2017.
  */

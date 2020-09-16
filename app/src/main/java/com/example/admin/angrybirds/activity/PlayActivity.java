@@ -31,17 +31,13 @@ import java.util.List;
 
 public class PlayActivity extends AppCompatActivity {
     private static final String TAG = "dfdfe";
-    private RelativeLayout root;
-    private double _xDelta ,_yDelta,cos,sin,xPrimary,yPriymary;
+    private double _xDelta;
+    private double _yDelta;
     private static double x ,y;
-    private int i;
     private Handle handle;
     private List<MovingObject> objects;
-    private ImageView save;
     private DataBaseManager dataBaseManagerSave;
-    //private DataBaseManager dataBaseManagerVideo;
 
-    private static int birdCount,boxCount,pigCount;
     private static int birdCounts,pigCounts;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +45,11 @@ public class PlayActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_play);
-        root=findViewById(R.id.root);
+        RelativeLayout root = findViewById(R.id.root);
         
         dataBaseManagerSave = new DataBaseManager(this,"save_db");
-        //dataBaseManagerVideo = new DataBaseManager(this,"video_db");
-        
-        save = findViewById(R.id.save_game);
+
+        ImageView save = findViewById(R.id.save_game);
         final Intent intent=getIntent();
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -108,7 +103,7 @@ public class PlayActivity extends AppCompatActivity {
         }
 
         Log.i(TAG, "onCreate: "+objects.size());
-        for (i=0;i<objects.size();i++)
+        for (int i=0;i<objects.size();i++)
         {
             root.addView(objects.get(i).getImage());
             if (objects.get(i) instanceof Bird)
@@ -118,19 +113,16 @@ public class PlayActivity extends AppCompatActivity {
             }
         }
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dataBaseManagerSave.deleteAll();
-                if (intent.getIntExtra("type",1)==4)
-                    dataBaseManagerSave.addObjects(objects,mapRandom.countBird(),mapRandom.countBox(),mapRandom.countPig());
-                else if (intent.getIntExtra("type",1)==1)
-                    dataBaseManagerSave.addObjects(objects,map1.countBird(),map1.countBox(),map1.countPig());
-                else if (intent.getIntExtra("type",1)==3)
-                    dataBaseManagerSave.addObjects(objects,MyMap.countBird(),MyMap.countBox(),MyMap.countPig());
-                else if (intent.getIntExtra("type",1)==5)
-                    dataBaseManagerSave.addObjects(objects,map2.countBird(),map2.countBox(),map2.countPig());
-            }
+        save.setOnClickListener(v -> {
+            dataBaseManagerSave.deleteAll();
+            if (intent.getIntExtra("type",1)==4)
+                dataBaseManagerSave.addObjects(objects,mapRandom.countBird(),mapRandom.countBox(),mapRandom.countPig());
+            else if (intent.getIntExtra("type",1)==1)
+                dataBaseManagerSave.addObjects(objects,map1.countBird(),map1.countBox(),map1.countPig());
+            else if (intent.getIntExtra("type",1)==3)
+                dataBaseManagerSave.addObjects(objects,MyMap.countBird(),MyMap.countBox(),MyMap.countPig());
+            else if (intent.getIntExtra("type",1)==5)
+                dataBaseManagerSave.addObjects(objects,map2.countBird(),map2.countBox(),map2.countPig());
         });
     }
 
@@ -144,13 +136,15 @@ public class PlayActivity extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             double X = event.getRawX();
             double Y = event.getRawY();
-            cos=(((X-_xDelta)-x)/Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2)));
-            sin=((y-(Y - _yDelta))/Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2)));
+            double cos = (((X - _xDelta) - x) / Math.sqrt(Math.pow(x - (X - _xDelta), 2) + Math.pow(y - (Y - _yDelta), 2)));
+            double sin = ((y - (Y - _yDelta)) / Math.sqrt(Math.pow(x - (X - _xDelta), 2) + Math.pow(y - (Y - _yDelta), 2)));
             if (Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))==0)
             {
-                sin=0;
-                cos=0;
+                sin =0;
+                cos =0;
             }
+            double xPrimary;
+            double yPriymary;
             switch (event.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     _xDelta = X - x;
@@ -163,19 +157,19 @@ public class PlayActivity extends AppCompatActivity {
                     bird.setCollision(1);
                     if (Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))>170)
                     {
-                        xPrimary=170*cos+x;
-                        yPriymary= -170*sin+y;
+                        xPrimary =170* cos +x;
+                        yPriymary = -170* sin +y;
                         bird.setVx(Math.sqrt(handle.getK()/ bird.getM())*3.5*170*-cos);
                         bird.setVy(Math.sqrt(handle.getK()/ bird.getM())*3.5*170*-sin);
-                        move.throwMoveOb(xPrimary,yPriymary,bird,objects,birdCounts,pigCounts);
+                        move.throwMoveOb(xPrimary, yPriymary,bird,objects,birdCounts,pigCounts);
                     }
                     else
                     {
-                        xPrimary= Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))*cos+x;
-                        yPriymary= -Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))*sin+y;
+                        xPrimary = Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))* cos +x;
+                        yPriymary = -Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))* sin +y;
                         bird.setVx(Math.sqrt(handle.getK()/ bird.getM())*3.5*Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))*-cos);
                         bird.setVy(Math.sqrt(handle.getK()/ bird.getM())*3.5*Math.sqrt(Math.pow(x-(X - _xDelta),2)+Math.pow(y-(Y - _yDelta),2))*-sin);
-                        move.throwMoveOb(xPrimary,yPriymary,bird,objects,birdCounts,pigCounts);
+                        move.throwMoveOb(xPrimary, yPriymary,bird,objects,birdCounts,pigCounts);
                     }
 
                     //if (bird.getId()+1<=birdCount-1)

@@ -25,20 +25,22 @@ import static android.content.ContentValues.TAG;
 
 public class Move{
     private boolean finish=false;
-    private Display display;
     private Point size;
-    private int a,b,n,m;
+    private int m;
     private Move move;
     private int i,j;
-    private double Vx,Vy,e=0.6,k=0.6,X,Y;
+    private double Vx;
+    private double Vy;
+
+    private double X;
+    private double Y;
     private int width,height;
     private Timer timerThrow;
     private Timer pigThrow;
     private Activity activity;
     private List<MovingObject> objects;
-    private ImageView obImage;
-    private float obImageX,obImageY;
-    private int obImageHeight,obImageWidth,countBird,countpig;
+    private int countBird;
+    private int countpig;
     private static int pigcount=0;
     Intent intent;
     public Move(Activity activity)
@@ -47,7 +49,7 @@ public class Move{
     }
     public void throwMoveOb(final double x, final double y, final MovingObject movingObject, final List<MovingObject> objects, final int countBird, final int countpig)
     {
-        display = activity.getWindowManager().getDefaultDisplay();
+        Display display = activity.getWindowManager().getDefaultDisplay();
         size = new Point();
         display.getSize(size);
 
@@ -70,53 +72,50 @@ public class Move{
         timerThrow.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        i++;
-                        j--;
-                        if (Vx<10&&Vx>-10)
-                            movingObject.setVx(0);
-                            //if (movingObject.getVy()>0&&movingObject.getVy()<15)
-                            //    movingObject.setVy(0);
-                        else if (!finish)
-                            movingObject.setVy(Vy-2500*i*0.01);
-                        movingObject.getImage().setX((float) (Vx*i*0.01+X));
-                        movingObject.getImage().setY((float) (Y+(0.5*2500*j*j*0.0001)+(Vy*j*0.01)));
-                        collisionToWall(movingObject);
-                        collisionToObject(movingObject);
-                        movingObject.getImage().setX((float) (Vx*i*0.01+X));
-                        movingObject.getImage().setY((float) (Y+(0.5*2500*j*j*0.0001)+(Vy*j*0.01)));
-                        if (movingObject.getVx()==0&&(finish||movingObject.getVy()<40&&movingObject.getVy()>-40))
+                activity.runOnUiThread(() -> {
+                    i++;
+                    j--;
+                    if (Vx<10&&Vx>-10)
+                        movingObject.setVx(0);
+                        //if (movingObject.getVy()>0&&movingObject.getVy()<15)
+                        //    movingObject.setVy(0);
+                    else if (!finish)
+                        movingObject.setVy(Vy-2500*i*0.01);
+                    movingObject.getImage().setX((float) (Vx*i*0.01+X));
+                    movingObject.getImage().setY((float) (Y+(0.5*2500*j*j*0.0001)+(Vy*j*0.01)));
+                    collisionToWall(movingObject);
+                    collisionToObject(movingObject);
+                    movingObject.getImage().setX((float) (Vx*i*0.01+X));
+                    movingObject.getImage().setY((float) (Y+(0.5*2500*j*j*0.0001)+(Vy*j*0.01)));
+                    if (movingObject.getVx()==0&&(finish||movingObject.getVy()<40&&movingObject.getVy()>-40))
+                    {
+                        movingObject.setVy(0);
+                        timerThrow.cancel();
+                        timerThrow.purge();
+                        if (movingObject.getId()+1==countBird&&pigcount!=countpig)
                         {
-                            movingObject.setVy(0);
-                            timerThrow.cancel();
-                            timerThrow.purge();
-                            if (movingObject.getId()+1==countBird&&pigcount!=countpig)
-                            {
-                                Toast.makeText(activity,"lose",Toast.LENGTH_LONG).show();
-                                activity.finish();
-                                intent=new Intent(activity,MenuActivity.class);
-                                activity.startActivity(intent);
-                            }
-                            if (pigcount==countpig&&(movingObject.getId()+1==countBird||movingObject.getId()+1<countBird))
-                            {
-                                Toast.makeText(activity,"win",Toast.LENGTH_LONG).show();
-                                activity.finish();
-                                intent=new Intent(activity,MenuActivity.class);
-                                activity.startActivity(intent);
-                            }
-                            else if (movingObject.getId()+1<countBird)
-                            {
-                                movingObject.getImage().setVisibility(View.INVISIBLE);
-                                movingObject.setHide(0);
-                                movingObject.setCollision(0);
-                                PlayActivity.setAnimation(objects.get(movingObject.getId()+1));
-                            }
+                            Toast.makeText(activity,"lose",Toast.LENGTH_LONG).show();
+                            activity.finish();
+                            intent=new Intent(activity,MenuActivity.class);
+                            activity.startActivity(intent);
                         }
-                        else
-                            finish=false;
+                        if (pigcount==countpig&&(movingObject.getId()+1==countBird||movingObject.getId()+1<countBird))
+                        {
+                            Toast.makeText(activity,"win",Toast.LENGTH_LONG).show();
+                            activity.finish();
+                            intent=new Intent(activity,MenuActivity.class);
+                            activity.startActivity(intent);
+                        }
+                        else if (movingObject.getId()+1<countBird)
+                        {
+                            movingObject.getImage().setVisibility(View.INVISIBLE);
+                            movingObject.setHide(0);
+                            movingObject.setCollision(0);
+                            PlayActivity.setAnimation(objects.get(movingObject.getId()+1));
+                        }
                     }
+                    else
+                        finish=false;
                 });
             }
         },0,30);
@@ -124,6 +123,8 @@ public class Move{
 
     private void collisionToWall(MovingObject movingObject)
     {
+        double e = 0.6;
+        double k = 0.6;
         if (isCollisionToWallY(movingObject))
         {
             i=j=0;
@@ -135,8 +136,8 @@ public class Move{
                 //move=new Move(activity);
                 //move.throwPig(movingObject,size);
             }
-            Vy=-movingObject.getVy()*e;
-            Vx= movingObject.getVx()*k;
+            Vy=-movingObject.getVy()* e;
+            Vx= movingObject.getVx()* k;
             movingObject.setVx(Vx);
             movingObject.setVy(Vy);
             finish=true;
@@ -145,8 +146,8 @@ public class Move{
         {
             i=j=0;
             //Log.i(TAG, "collisionX: 4");
-            Vx=-movingObject.getVx()*e;
-            Vy= movingObject.getVy()*k;
+            Vx=-movingObject.getVx()* e;
+            Vy= movingObject.getVy()* k;
             movingObject.setVx(Vx);
             movingObject.setVy(Vy);
         }
@@ -190,20 +191,20 @@ public class Move{
 
     private void collisionToObject(MovingObject movingObject)
     {
-        obImage=movingObject.getImage();
-        obImageX=obImage.getX();
-        obImageY=obImage.getY();
-        obImageHeight=movingObject.getHeight();
-        obImageWidth=movingObject.getWidth();
+        ImageView obImage = movingObject.getImage();
+        float obImageX = obImage.getX();
+        float obImageY = obImage.getY();
+        int obImageHeight = movingObject.getHeight();
+        int obImageWidth = movingObject.getWidth();
         //Log.i(TAG, "collisionToObjecteeeeeeee: "+movingObject.getHeight()+"/"+obImage.getHeight());
-        for (a=0;a<objects.size();a++)
+        for (int a=0;a<objects.size();a++)
         {
-            if (obImageY>=objects.get(a).getImage().getY()-5*obImageHeight/6&&obImageY<=(objects.get(a).getImage().getY()-obImageHeight/6+objects.get(a).getHeight())&&obImageX>(objects.get(a).getImage().getX()-obImageWidth)&&obImageX<objects.get(a).getImage().getX()&&objects.get(a).getCollision()==1)
+            if (obImageY >=objects.get(a).getImage().getY()-5* obImageHeight /6&& obImageY <=(objects.get(a).getImage().getY()- obImageHeight /6+objects.get(a).getHeight())&& obImageX >(objects.get(a).getImage().getX()- obImageWidth)&& obImageX <objects.get(a).getImage().getX()&&objects.get(a).getCollision()==1)
             {
                 if (objects.get(a) instanceof Box||objects.get(a) instanceof Bird)
                 {
-                    X=objects.get(a).getImage().getX()-obImageWidth;
-                    Y=obImageY;
+                    X=objects.get(a).getImage().getX()- obImageWidth;
+                    Y= obImageY;
                     //Log.i(TAG, "collisionX: 1/"+objects.get(a).getImage().getX()+"/"+X+"/"+obImage.getWidth());
                     collisionX(movingObject,objects.get(a));
                     return ;
@@ -218,13 +219,13 @@ public class Move{
                 }
             }
         }
-        for (b=0;b<objects.size();b++)
-            if (obImageY>=objects.get(b).getImage().getY()-5*obImageHeight/6&&obImageY<=(objects.get(b).getImage().getY()-obImageHeight/6+objects.get(b).getHeight())&&obImageX<(objects.get(b).getImage().getX()+objects.get(b).getWidth())&&obImageX>objects.get(b).getImage().getX()&&objects.get(b).getCollision()==1)
+        for (int b=0;b<objects.size();b++)
+            if (obImageY >=objects.get(b).getImage().getY()-5* obImageHeight /6&& obImageY <=(objects.get(b).getImage().getY()- obImageHeight /6+objects.get(b).getHeight())&& obImageX <(objects.get(b).getImage().getX()+objects.get(b).getWidth())&& obImageX >objects.get(b).getImage().getX()&&objects.get(b).getCollision()==1)
             {
                 if (objects.get(b) instanceof Box||objects.get(b) instanceof Bird)
                 {
                     X=objects.get(b).getImage().getX()+objects.get(b).getWidth();
-                    Y=obImageY;
+                    Y= obImageY;
                     //Log.i(TAG, "collisionX: 111/"+obImage.getX()+"/"+objects.get(b).getImage().getX()+"/"+objects.get(b).getWidth());
                     collisionX(movingObject,objects.get(b));
                     return ;
@@ -239,12 +240,12 @@ public class Move{
                 }
             }
         for (m=0;m<objects.size();m++)
-            if (obImageX>=(objects.get(m).getImage().getX()-5*obImageWidth/6)&&obImageX<=(objects.get(m).getImage().getX()-obImageWidth/6+objects.get(m).getWidth())&&obImageY>(objects.get(m).getImage().getY()-(obImageHeight))&&obImageY<objects.get(m).getImage().getY()&&objects.get(m).getCollision()==1)
+            if (obImageX >=(objects.get(m).getImage().getX()-5* obImageWidth /6)&& obImageX <=(objects.get(m).getImage().getX()- obImageWidth /6+objects.get(m).getWidth())&& obImageY >(objects.get(m).getImage().getY()-(obImageHeight))&& obImageY <objects.get(m).getImage().getY()&&objects.get(m).getCollision()==1)
             {
                 if (objects.get(m) instanceof Box||objects.get(m) instanceof Bird)
                 {
-                    X=obImageX;
-                    Y=objects.get(m).getImage().getY()-obImageHeight;
+                    X= obImageX;
+                    Y=objects.get(m).getImage().getY()- obImageHeight;
                     finish=true;
                     collisionY(movingObject,objects.get(m));
                     return ;
@@ -258,10 +259,10 @@ public class Move{
                     return ;
                 }
             }
-        for (n=0;n<objects.size();n++)
-            if (obImageX>=(objects.get(n).getImage().getX()-5*obImageWidth/6)&&obImageX<=(objects.get(n).getImage().getX()-obImageWidth/6+objects.get(n).getWidth())&&obImageY<(objects.get(n).getImage().getY()+(objects.get(n).getHeight()))&&obImageY>objects.get(n).getImage().getY()&&objects.get(n).getCollision()==1)
+        for (int n=0;n<objects.size();n++)
+            if (obImageX >=(objects.get(n).getImage().getX()-5* obImageWidth /6)&& obImageX <=(objects.get(n).getImage().getX()- obImageWidth /6+objects.get(n).getWidth())&& obImageY <(objects.get(n).getImage().getY()+(objects.get(n).getHeight()))&& obImageY >objects.get(n).getImage().getY()&&objects.get(n).getCollision()==1)
             {
-                X=obImageX;
+                X= obImageX;
                 Y=objects.get(n).getImage().getY()+objects.get(n).getHeight();
                 finish=true;
                 collisionY(movingObject,objects.get(n));
@@ -348,30 +349,27 @@ public class Move{
         pigThrow.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (pig.getImage().getY()>=primaryPosY-100&&pig.getVy()>0)
-                        {
-                            pig.getImage().setY(pig.getImage().getY()-15);
-                            pig.setVy(10);
-                            pig.setVx(0);
-                        }
-                        else
-                        {
-                            pig.getImage().setY(pig.getImage().getY()+15);
-                            pig.setVy(-10);
-                            pig.setVx(0);
-                        }
-                        if (pig.getImage().getY()>size.y)
-                        {
-                            pigThrow.purge();
-                            pigThrow.cancel();
-                            pig.setVx(0);
-                            pig.setVy(0);
-                            pig.getImage().setVisibility(View.INVISIBLE);
-                            pig.setHide(0);
-                        }
+                activity.runOnUiThread(() -> {
+                    if (pig.getImage().getY()>=primaryPosY-100&&pig.getVy()>0)
+                    {
+                        pig.getImage().setY(pig.getImage().getY()-15);
+                        pig.setVy(10);
+                        pig.setVx(0);
+                    }
+                    else
+                    {
+                        pig.getImage().setY(pig.getImage().getY()+15);
+                        pig.setVy(-10);
+                        pig.setVx(0);
+                    }
+                    if (pig.getImage().getY()>size.y)
+                    {
+                        pigThrow.purge();
+                        pigThrow.cancel();
+                        pig.setVx(0);
+                        pig.setVy(0);
+                        pig.getImage().setVisibility(View.INVISIBLE);
+                        pig.setHide(0);
                     }
                 });
             }

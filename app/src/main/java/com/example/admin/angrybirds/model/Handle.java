@@ -13,14 +13,12 @@ import com.example.admin.angrybirds.R;
  */
 
 public class Handle extends fixedObject {
-    private Context context;
     private ImageView handle;
 
     public Handle(Context context)
     {
         handle=new ImageView(context);
         handle.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.handle, null));
-        this.context=context;
     }
 
 

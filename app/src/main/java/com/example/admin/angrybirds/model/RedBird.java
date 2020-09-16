@@ -13,7 +13,6 @@ import com.example.admin.angrybirds.R;
  */
 
 public class RedBird extends Bird {
-    private Context context;
     private ImageView bird;
     private MediaPlayer sound;
     public RedBird(Context context)
@@ -21,7 +20,6 @@ public class RedBird extends Bird {
         bird=new ImageView(context);
         bird.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.red_bird_icon, null));
         sound=MediaPlayer.create(context.getApplicationContext(), R.raw.red_bird_flying);
-        this.context=context;
     }
 
     @Override

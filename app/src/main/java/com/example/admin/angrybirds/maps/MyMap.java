@@ -13,21 +13,13 @@ import com.example.admin.angrybirds.model.RedBird;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static android.content.ContentValues.TAG;
 
 
 
 public class MyMap {
-        private static int heightBox;
-        private static int widthBox;
-        private static int widthRedBird;
-        private static int heightRedBird;
-        private static int widthPig;
-        private static int heightPig;
-        private static Point size;
-        private static int countBird,countBox,countPig;
+    private static int countBird,countBox,countPig;
 
         public static List<MovingObject> CreateObjects(Activity activity,int[] position,int birdCount,int boxPos1,int boxPos2,int boxPos3,int boxPos4,int boxPos5)
         {
@@ -39,23 +31,21 @@ public class MyMap {
             countBird=birdCount;
             countPig=0;
 
-            Random random=new Random();
-
             Display display = activity.getWindowManager().getDefaultDisplay();
-            size = new Point();
+            Point size = new Point();
             display.getSize(size);
 
             heightRedBirdPX=dpToPx(30,activity);
             widthRedBirdPX=dpToPx(30,activity);
-            heightRedBird = size.y-heightRedBirdPX-130;
+            int heightRedBird = size.y - heightRedBirdPX - 130;
 
             heightBoxPX=dpToPx(40,activity);
             widthBoxPX=dpToPx(40,activity);
-            heightBox = size.y-heightBoxPX-130;
+            int heightBox = size.y - heightBoxPX - 130;
 
             heightPigPX=dpToPx(30,activity);
             widthPigPX=dpToPx(30,activity);
-            heightPig = size.y-heightPigPX-130;
+            int heightPig = size.y - heightPigPX - 130;
 
 
             List<MovingObject> objects=new ArrayList<>();
@@ -116,7 +106,7 @@ public class MyMap {
                 box.setHeight(heightBoxPX);
                 box.setWidth(widthBoxPX);
                 box.getImage().setX(550);
-                box.getImage().setY(heightBox-pos1*heightBoxPX);
+                box.getImage().setY(heightBox -pos1*heightBoxPX);
                 box.setCollision(1);
                 box.setId(id++);
                 pos1++;
@@ -128,7 +118,7 @@ public class MyMap {
                 box.setHeight(heightBoxPX);
                 box.setWidth(widthBoxPX);
                 box.getImage().setX(800);
-                box.getImage().setY(heightBox-pos2*heightBoxPX);
+                box.getImage().setY(heightBox -pos2*heightBoxPX);
                 box.setCollision(1);
                 box.setId(id++);
                 pos2++;
@@ -140,7 +130,7 @@ public class MyMap {
                 box.setHeight(heightBoxPX);
                 box.setWidth(widthBoxPX);
                 box.getImage().setX(1050);
-                box.getImage().setY(heightBox-pos3*heightBoxPX);
+                box.getImage().setY(heightBox -pos3*heightBoxPX);
                 box.setCollision(1);
                 box.setId(id++);
                 pos3++;
@@ -152,7 +142,7 @@ public class MyMap {
                 box.setHeight(heightBoxPX);
                 box.setWidth(widthBoxPX);
                 box.getImage().setX(1300);
-                box.getImage().setY(heightBox-pos4*heightBoxPX);
+                box.getImage().setY(heightBox -pos4*heightBoxPX);
                 box.setCollision(1);
                 box.setId(id++);
                 pos4++;
@@ -164,15 +154,15 @@ public class MyMap {
                 box.setHeight(heightBoxPX);
                 box.setWidth(widthBoxPX);
                 box.getImage().setX(1550);
-                box.getImage().setY(heightBox-pos5*heightBoxPX);
+                box.getImage().setY(heightBox -pos5*heightBoxPX);
                 box.setCollision(1);
                 box.setId(id++);
                 pos5++;
                 objects.add(box);
             }
 
-            for (int i=0;i<position.length;i++)
-                switch (position[i]) {
+            for (int value : position)
+                switch (value) {
                     case 1:
                         Pig pig = new Pig(activity);
                         pig.setHeight(heightPigPX);

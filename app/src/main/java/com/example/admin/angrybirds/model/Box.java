@@ -12,12 +12,11 @@ import com.example.admin.angrybirds.R;
 
 public class Box extends MovingObject {
     private ImageView box;
-    private Context context;
+
     public Box(Context context)
     {
         box=new ImageView(context);
         box.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(), R.drawable.box, null));
-        this.context=context;
     }
 
     @Override
