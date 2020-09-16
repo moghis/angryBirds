@@ -7,9 +7,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.example.admin.angrybirds.activity.MenuActivity;
 import com.example.admin.angrybirds.activity.PlayActivity;
 import com.example.admin.angrybirds.model.Bird;
 import com.example.admin.angrybirds.model.Box;
@@ -94,17 +91,17 @@ public class Move{
                         timerThrow.purge();
                         if (movingObject.getId()+1==countBird&&pigcount!=countpig)
                         {
-                            Toast.makeText(activity,"lose",Toast.LENGTH_LONG).show();
+                            intent = new Intent();
+                            intent.putExtra("result","lose");
+                            activity.setResult(Activity.RESULT_OK,intent);
                             activity.finish();
-                            intent=new Intent(activity,MenuActivity.class);
-                            activity.startActivity(intent);
                         }
                         if (pigcount==countpig&&(movingObject.getId()+1==countBird||movingObject.getId()+1<countBird))
                         {
-                            Toast.makeText(activity,"win",Toast.LENGTH_LONG).show();
+                            intent = new Intent();
+                            intent.putExtra("result","win");
+                            activity.setResult(Activity.RESULT_OK,intent);
                             activity.finish();
-                            intent=new Intent(activity,MenuActivity.class);
-                            activity.startActivity(intent);
                         }
                         else if (movingObject.getId()+1<countBird)
                         {

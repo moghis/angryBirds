@@ -1,5 +1,6 @@
 package com.example.admin.angrybirds.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 
 import com.example.admin.angrybirds.R;
 
@@ -149,8 +151,21 @@ public class SettingActivity extends AppCompatActivity {
             intent.putExtra("boxPos4",boxPos4);
             intent.putExtra("boxPos5",boxPos5);
             intent.putExtra("type",3);
-            startActivity(intent);
+            startActivityForResult(intent,NewGameActivity.LAUNCH_PLAY_ACTIVITY);
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NewGameActivity.LAUNCH_PLAY_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                Toast.makeText(this,result,Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }
