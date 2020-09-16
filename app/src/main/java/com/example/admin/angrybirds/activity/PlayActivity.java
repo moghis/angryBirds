@@ -4,7 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -22,12 +22,10 @@ import com.example.admin.angrybirds.Move;
 import com.example.admin.angrybirds.R;
 import com.example.admin.angrybirds.maps.map2;
 import com.example.admin.angrybirds.maps.mapRandom;
-import com.example.admin.angrybirds.model.Box;
 import com.example.admin.angrybirds.model.Handle;
 import com.example.admin.angrybirds.model.Bird;
 import com.example.admin.angrybirds.model.MovingObject;
 import com.example.admin.angrybirds.model.Objects;
-import com.example.admin.angrybirds.model.Pig;
 
 import java.util.List;
 

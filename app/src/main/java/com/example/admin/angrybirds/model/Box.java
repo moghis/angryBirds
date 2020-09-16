@@ -2,9 +2,8 @@ package com.example.admin.angrybirds.model;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.v4.content.res.ResourcesCompat;
+import androidx.core.content.res.ResourcesCompat;
 import android.widget.ImageView;
-
 import com.example.admin.angrybirds.R;
 
 /**

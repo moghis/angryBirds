@@ -2,13 +2,11 @@ package com.example.admin.angrybirds.model;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.support.v4.content.res.ResourcesCompat;
-import android.util.Log;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.widget.ImageView;
 
 import com.example.admin.angrybirds.R;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by moghis on 10/12/2017.
